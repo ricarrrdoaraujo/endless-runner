@@ -47,7 +47,7 @@ void AGameController::Tick(float DeltaTime)
 	if (FloorPlane != nullptr)
 	{
 		FVector FloorPosition = FloorPlane->GetActorLocation();
-		FloorPosition.X = RunnerCharacter->GetActorLocation().X;
+		FloorPosition.Y = RunnerCharacter->GetActorLocation().Y;
 
 		FloorPlane->SetActorLocation(FloorPosition);
 
@@ -60,7 +60,7 @@ void AGameController::Tick(float DeltaTime)
 
 	if (PlatformPlayerToCheck != nullptr)
 	{
-		if (RunnerCharacter->GetActorLocation().X > PlatformPlayerToCheck->GetActorLocation().X)
+		if (RunnerCharacter->GetActorLocation().Y > PlatformPlayerToCheck->GetActorLocation().Y)
 		{
 
 			// Next is the next one to check
@@ -167,7 +167,7 @@ void AGameController::InitializeGame()
 			{
 				FVector PlayerLoc = PlatformPlayerToCheck->GetActorLocation();
 
-				PlayerLoc.Z = 280.0f;
+				PlayerLoc.Z = 110.0f;
 
 				RunnerCharacter->SetActorLocation(PlayerLoc);
 			}

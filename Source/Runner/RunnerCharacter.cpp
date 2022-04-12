@@ -24,8 +24,8 @@ ARunnerCharacter::ARunnerCharacter()
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
 	CameraBoom->SetupAttachment(RootComponent);
 	CameraBoom->SetUsingAbsoluteRotation(true);
-	//CameraBoom->TargetArmLength = 800.f;
-	//CameraBoom->SetRelativeRotation(FRotator(-60.f, 0.f, 0.f));
+	CameraBoom->TargetArmLength = 800.f;
+	CameraBoom->SetRelativeRotation(FRotator(0.f, -40.f, 0.f));
 	CameraBoom->bDoCollisionTest = false; //do not pull camera when collides with level
 
 	TopDownCameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("TopDownCamera"));
@@ -62,7 +62,7 @@ void ARunnerCharacter::MoveToRight()
 {
 	if (!bIsMoving) return;
 	FVector CurrentAct = GetActorLocation();
-	CurrentAct.Y = CurrentAct.Y + 300.0;
+	CurrentAct.X = CurrentAct.X - 120.0;
 
 	SetActorLocation(CurrentAct);
 }
@@ -71,7 +71,7 @@ void ARunnerCharacter::MoveToLeft()
 {
 	if (!bIsMoving) return;
 	FVector CurrentAct = GetActorLocation();
-	CurrentAct.Y = CurrentAct.Y - 300.0;
+	CurrentAct.X = CurrentAct.X + 120.0;
 
 	SetActorLocation(CurrentAct);
 }
