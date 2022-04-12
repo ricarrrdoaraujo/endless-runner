@@ -3,6 +3,7 @@
 
 #include "RunnerPlayerController.h"
 #include "RunnerCharacter.h" 
+#include "GameFramework/SpringArmComponent.h"
 
 ARunnerPlayerController::ARunnerPlayerController()
 {
@@ -99,6 +100,20 @@ void ARunnerPlayerController::MoveRight(float Value)
                 CurrentLane -= 1;
                 CurrentLane = FMath::Clamp(CurrentLane, 0, 2);
             }
+        }
+
+        if (CurrentLane == 1)
+        {
+            MyCharacter->GetCameraBoom()->SetRelativeRotation(FRotator(-20.f, 0.f, 0.f));
+            
+        }
+        else if (CurrentLane == 2)
+        {
+            MyCharacter->GetCameraBoom()->SetRelativeRotation(FRotator(-20.f, -5.f, 0.f));
+        }
+        else if (CurrentLane == 0)
+        {
+            MyCharacter->GetCameraBoom()->SetRelativeRotation(FRotator(-20.f, 5.f, 0.f));
         }
     }
 }

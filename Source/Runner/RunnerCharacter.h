@@ -48,4 +48,5 @@ protected:
 public:
 	FORCEINLINE void SetIsMoving(bool Value) { bIsMoving = Value; };
 
+	FORCEINLINE USpringArmComponent* GetCameraBoom() { return CameraBoom; };
 };
