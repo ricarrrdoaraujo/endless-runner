@@ -5,6 +5,7 @@
 #include "RunnerPlayerController.h"
 #include "RunnerCharacter.h"
 #include "GameFramework/Actor.h"
+#include "InGameUserUI.h"
 
 AGameController::AGameController()
 {
@@ -25,12 +26,14 @@ void AGameController::BeginPlay()
 		RunnerCharacter = Cast<ARunnerCharacter>(PlayerController->GetCharacter());
 	}
 
-	// Initialize platforms and locate the player on the first platform
+	// Initialize platforms
 	InitializeGame();
+
+	PlayerController->SetInitialLives(PlayerLives);
 
 	GameState = EGameState::VE_PrepareGame;
 
-	GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AGameController::OnRespawn, 3.0f, false);
+	GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AGameController::OnRespawn, 0.1f, false);
 	
 }
 
@@ -54,7 +57,24 @@ void AGameController::Tick(float DeltaTime)
 		if (RunnerCharacter->GetActorLocation().Z <= FloorPosition.Z)
 		{
 			PlayerController->StopRunning();
-			GameState = EGameState::VE_GameOver;
+
+			bool LastLive = false;
+			PlayerController->TakeLive(LastLive);
+
+			if (LastLive)
+			{
+				GameState = EGameState::VE_GameOver;
+
+				if (PlayerController->GetUI() != nullptr)
+				{
+					PlayerController->GetUI()->OnGameOver();
+				}
+			}
+			else 
+			{
+				GameState = EGameState::VE_RemovePlatforms;
+				GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AGameController::OnRespawn, 1.0f, false);
+			}
 		}
 	}
 
@@ -335,12 +355,53 @@ void AGameController::OnRespawn()
 {
 	GetWorld()->GetTimerManager().ClearTimer(RespawnTimerHandle);
 
-	if (PlayerController != nullptr)
+	if (GameState == EGameState::VE_PrepareGame)
 	{
-		PlayerController->Respawn();
+		if (PlayerController->GetUI() != nullptr)
+		{
+			PlayerController->GetUI()->OnStartGame();
 
-		PlayerController->StartRunning();
+			GameState = EGameState::VE_Respawn;
+
+			GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AGameController::OnRespawn, 3.0f, false);
+		}
 	}
+	else if (GameState == EGameState::VE_RemovePlatforms)
+	{
+		//Destroy all platforms
+		AModule* First = FirstPlatform;
+		while (First->GetNext() != nullptr)
+		{
+			AModule* Temp = First->GetNext();
+			First->DestroyModule();
+			First = Temp;
+		}
 
-	GameState = EGameState::VE_Running;
+		if (First != nullptr)
+		{
+			First->DestroyModule();
+		}
+
+		FirstPlatform = nullptr;
+
+		InitializeGame();
+
+		GameState = EGameState::VE_PrepareGame;
+
+		GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AGameController::OnRespawn, 3.0f, false);
+
+	}
+	else if (GameState == EGameState::VE_Respawn)
+	{
+
+		if (PlayerController != nullptr)
+		{
+			PlayerController->Respawn();
+
+			PlayerController->StartRunning();
+
+			GameState = EGameState::VE_Running;
+		}
+	}
+	
 }

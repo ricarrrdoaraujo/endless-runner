@@ -44,9 +44,26 @@ private:
 	int CurrentLane;
 	float CurrentDistance;
 
+	int CoinsCollected;
+	int CurrentLives;
+
 private:
 	bool bIsJumping;
 	float RemainingJumpTime;
+
+protected:
+	UPROPERTY(BlueprintReadWrite, Category = "Player UI")
+	class UInGameUserUI* InGameUI;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player UI")
+	TSubclassOf<class UUserWidget> InGameUIClass;
+
+public:
+
+	FORCEINLINE UInGameUserUI* GetUI() { return InGameUI; };
+
+	UFUNCTION(BlueprintCallable, Category = "Player Events")
+	void OnCollectCoin();
 
 public:
 
@@ -57,4 +74,8 @@ public:
 	void StopRunning();
 
 	void Respawn();
+
+	void TakeLive(bool& isLastLive);
+
+	void SetInitialLives(int32 InitialLives);
 };

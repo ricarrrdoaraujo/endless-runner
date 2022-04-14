@@ -39,7 +39,7 @@ void ARunnerCharacter::BeginPlay()
 	Super::BeginPlay();
 	bIsMoving = false;
 
-	GetCharacterMovement()->MaxWalkSpeed = 400;
+	GetCharacterMovement()->MaxWalkSpeed = 600;
 }
 
 // Called every frame

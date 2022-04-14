@@ -4,6 +4,7 @@
 #include "RunnerPlayerController.h"
 #include "RunnerCharacter.h" 
 #include "GameFramework/SpringArmComponent.h"
+#include "InGameUserUI.h"
 
 ARunnerPlayerController::ARunnerPlayerController()
 {
@@ -17,12 +18,31 @@ void ARunnerPlayerController::BeginPlay()
     bIsRunning = false;
     bLockMovement = true;
     CurrentLane = 1; //start in middle lane
+    
+    CoinsCollected = 0;
+    CurrentDistance = 0;
 
     APawn* const pawn = GetPawn();
     if (pawn != nullptr)
     {
         MyCharacter = Cast<ARunnerCharacter>(pawn);
     }
+
+    if (InGameUIClass != nullptr)
+    {
+        InGameUI = CreateWidget<UInGameUserUI>(this, InGameUIClass);
+
+        if (InGameUI != nullptr)
+        {
+            InGameUI->AddToViewport();
+
+            InGameUI->UpdateCoins(CoinsCollected);
+            InGameUI->UpdateDistance(CurrentDistance);
+            InGameUI->UpdateLives(CurrentLives);
+        }
+    }
+
+   
 
     StartRunning();
 }
@@ -43,6 +63,16 @@ void ARunnerPlayerController::PlayerTick(float DeltaTime)
     }
 
     if (!bCanMove) return;
+
+    if (bIsRunning)
+    {
+        CurrentDistance += DeltaTime;
+
+        if (InGameUI != nullptr)
+        {
+            InGameUI->UpdateDistance(CurrentDistance);
+        }
+    }
 
     if (bIsJumping)
     {
@@ -154,4 +184,45 @@ void ARunnerPlayerController::Respawn()
 {
     CurrentLane = 1; // Set current lane to the middle one
     bIsRunning = false;
+    CurrentDistance = 0.0f;
+
+    if (InGameUI != nullptr)
+    {
+        InGameUI->UpdateCoins(CoinsCollected);
+        InGameUI->UpdateDistance(CurrentDistance);
+    }
+}
+
+void ARunnerPlayerController::TakeLive(bool& isLastLive)
+{
+    bool IsLastLive = false;
+    if ((CurrentLives - 1) < 0)
+    {
+        CurrentLives = 0;
+        IsLastLive = true;
+    }
+    else
+    {
+        CurrentLives -= 1;
+    }
+
+    if (InGameUI != nullptr)
+    {
+        InGameUI->UpdateLives(CurrentLives);
+    }
+}
+
+void ARunnerPlayerController::SetInitialLives(int32 InitialLives)
+{
+    CurrentLives = InitialLives;
+}
+
+void ARunnerPlayerController::OnCollectCoin()
+{
+    CoinsCollected += 1;
+
+    if (InGameUI != nullptr)
+    {
+        InGameUI->UpdateCoins(CoinsCollected);
+    }
 }

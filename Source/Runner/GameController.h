@@ -48,6 +48,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Game Controller Settings")
 	int VisibleModuleNumber = 7;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Game Controller Settings")
+	int PlayerLives = 3;
 	
 public:	
 	// Sets default values for this actor's properties
