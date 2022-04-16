@@ -8,6 +8,7 @@
 
 ARunnerPlayerController::ARunnerPlayerController()
 {
+    bIsRunning = false;
 }
 
 void ARunnerPlayerController::BeginPlay()
@@ -66,10 +67,12 @@ void ARunnerPlayerController::PlayerTick(float DeltaTime)
 
     if (bIsRunning)
     {
+        UE_LOG(LogTemp, Warning, TEXT("bIsRunning"));
         CurrentDistance += DeltaTime;
 
         if (InGameUI != nullptr)
         {
+            UE_LOG(LogTemp, Warning, TEXT("Distance Up"));
             InGameUI->UpdateDistance(CurrentDistance);
         }
     }
@@ -164,9 +167,10 @@ void ARunnerPlayerController::Jump()
 void ARunnerPlayerController::StartRunning()
 {
     bCanMove = true;
-    bIsRunning = true;
+    
     if (MyCharacter != nullptr)
     {
+        bIsRunning = true;
         UE_LOG(LogTemp, Warning, TEXT("StartRunning"));
         MyCharacter->SetIsMoving(true);
     }

@@ -171,6 +171,8 @@ void AGameController::InitializeGame()
 				SpawnedPlatform->SetPrevious(PreviousPlatform);
 
 				PreviousPlatform->SetNext(SpawnedPlatform);
+
+				PreviousPlatform->SpawnPickups(PlatformCount);
 			}
 
 		}

@@ -41,6 +41,17 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Module Settings")
 	float ModuleLength = 20.0f;
 
+protected:
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Module Spawn Pickups")
+	USceneComponent* Lane0;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Module Spawn Pickups")
+	USceneComponent* Lane1;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Module Spawn Pickups")
+	USceneComponent* Lane2;
+
 public:
 	FORCEINLINE float GetModuleLength() {return ModuleLength;}
 
@@ -60,7 +71,23 @@ protected:
 
 	AModule* NextPlatform = nullptr;
 
+	UPROPERTY(EditDefaultsOnly, Category = "Lane Settings")
+	float DistanceBetweenLanes = 130.f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Pickups Settings")
+	TSubclassOf<class APickup> PickupClass = nullptr;
+
+	TArray<class APickup*> SpawnedPickups;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Pickups Settings")
+	float PickupYStartLocation = -170.0f;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Obstacle Settings")
+	float YDistanceBetweenPickups = 230.0f;
+
 public:
+
+	void SpawnPickups(int Difficulty);
 
 	void DestroyModule();
 };
