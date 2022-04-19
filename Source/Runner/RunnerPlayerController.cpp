@@ -8,7 +8,6 @@
 
 ARunnerPlayerController::ARunnerPlayerController()
 {
-    bIsRunning = false;
 }
 
 void ARunnerPlayerController::BeginPlay()
@@ -167,10 +166,9 @@ void ARunnerPlayerController::Jump()
 void ARunnerPlayerController::StartRunning()
 {
     bCanMove = true;
-    
+    bIsRunning = true;
     if (MyCharacter != nullptr)
     {
-        bIsRunning = true;
         UE_LOG(LogTemp, Warning, TEXT("StartRunning"));
         MyCharacter->SetIsMoving(true);
     }
