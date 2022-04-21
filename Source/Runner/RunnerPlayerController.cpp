@@ -2,7 +2,7 @@
 
 
 #include "RunnerPlayerController.h"
-#include "RunnerCharacter.h" 
+#include "RunnerCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "InGameUserUI.h"
 
@@ -41,8 +41,6 @@ void ARunnerPlayerController::BeginPlay()
             InGameUI->UpdateLives(CurrentLives);
         }
     }
-
-   
 
     StartRunning();
 }

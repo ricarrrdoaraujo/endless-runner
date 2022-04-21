@@ -36,6 +36,9 @@ public:
 public:
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Game Events")
+	void OnInitializeGame();
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Game Events")
 	void OnStartGame();
 
 	UFUNCTION(BlueprintImplementableEvent, Category = "Game Events")

@@ -19,6 +19,8 @@ void AGameController::BeginPlay()
 
 	GameState = EGameState::VE_InitializeGame;
 
+	PlayerController = Cast<ARunnerPlayerController>(GetWorld()->GetFirstPlayerController());
+
 	OpenGame();
 	
 }
@@ -28,14 +30,19 @@ void AGameController::OpenGame()
 	if (GameState == EGameState::VE_InitializeGame)
 	{
 		//TODO: Create Initial screen
+		if (PlayerController != nullptr)
+		{
+			if (PlayerController->GetUI() != nullptr)
+			{
+				PlayerController->GetUI()->OnInitializeGame();
+			}
+		}
 	}
 }
 
 void AGameController::StartSession()
 {
 	GameState = EGameState::VE_PreparePlatform;
-
-	PlayerController = Cast<ARunnerPlayerController>(GetWorld()->GetFirstPlayerController());
 
 	if (PlayerController != nullptr)
 	{

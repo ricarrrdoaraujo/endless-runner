@@ -84,6 +84,11 @@ private:
 
 	void SpawnNewPlatform();
 
+	UFUNCTION(BlueprintCallable)
+	void StartSession();
+
+	void OpenGame();
+
 	UFUNCTION()
 	void OnRespawn();
 
