@@ -58,6 +58,14 @@ void ARunnerCharacter::Tick(float DeltaTime)
 	}
 }
 
+void ARunnerCharacter::SelectCharacterSkin(int keyNumber)
+{
+	if (!AlternateSkin.IsEmpty())
+	{
+		GetMesh()->SetSkeletalMesh(AlternateSkin[keyNumber]);
+	}
+}
+
 void ARunnerCharacter::MoveToRight()
 {
 	if (!bIsMoving) return;

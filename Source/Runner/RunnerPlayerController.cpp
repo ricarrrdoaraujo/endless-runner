@@ -51,6 +51,18 @@ void ARunnerPlayerController::PlayerTick(float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
 
+    if (MyCharacter != nullptr)
+    {
+        if (IsInputKeyDown(EKeys::One))
+        {
+            MyCharacter->SelectCharacterSkin(0);
+        }
+        else if (IsInputKeyDown(EKeys::Two))
+        {
+            MyCharacter->SelectCharacterSkin(1);
+        }
+    }
+
     if (bLockMovement)
     {
         CurrentLockMovementTime += DeltaTime;

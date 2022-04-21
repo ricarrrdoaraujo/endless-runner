@@ -31,12 +31,16 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	class USpringArmComponent* CameraBoom;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Alternate Skin")
+	TArray<USkeletalMesh*> AlternateSkin;
+
 public:
 
 	void MoveToRight();
 	void MoveToLeft();
+	void SelectCharacterSkin(int keyNumber);
 
-	private:
+private:
 	bool bIsMoving = false;
 
 	void Respawn(FVector Position);
