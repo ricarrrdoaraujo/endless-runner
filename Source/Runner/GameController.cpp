@@ -17,6 +17,22 @@ void AGameController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	GameState = EGameState::VE_InitializeGame;
+
+	OpenGame();
+	
+}
+
+void AGameController::OpenGame()
+{
+	if (GameState == EGameState::VE_InitializeGame)
+	{
+		//TODO: Create Initial screen
+	}
+}
+
+void AGameController::StartSession()
+{
 	GameState = EGameState::VE_PreparePlatform;
 
 	PlayerController = Cast<ARunnerPlayerController>(GetWorld()->GetFirstPlayerController());
@@ -34,7 +50,6 @@ void AGameController::BeginPlay()
 	GameState = EGameState::VE_PrepareGame;
 
 	GetWorld()->GetTimerManager().SetTimer(RespawnTimerHandle, this, &AGameController::OnRespawn, 0.1f, false);
-	
 }
 
 // Called every frame
