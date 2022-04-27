@@ -17,11 +17,13 @@ void AGameController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	GameState = EGameState::VE_InitializeGame;
+	//GameState = EGameState::VE_InitializeGame;
+	GameState = EGameState::VE_PreparePlatform;
 
 	PlayerController = Cast<ARunnerPlayerController>(GetWorld()->GetFirstPlayerController());
 
-	OpenGame();
+	//OpenGame();
+	StartSession();
 	
 }
 
