@@ -13,5 +13,13 @@ UCLASS()
 class RUNNER_API UInitialGameWidget : public UUserWidget
 {
 	GENERATED_BODY()
+
+public:
+
+	UFUNCTION(BlueprintImplementableEvent, Category = "Game Events")
+	void OnInitializeGame();
+
+	/*UFUNCTION(BlueprintCallable)
+	void RemoveInitialWidget();*/
 	
 };
