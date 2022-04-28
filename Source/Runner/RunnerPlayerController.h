@@ -58,6 +58,12 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player UI")
 	TSubclassOf<class UUserWidget> InGameUIClass;
 
+	UPROPERTY(BlueprintReadWrite, Category = "Player UI")
+	class UInitialGameWidget* StartGameUI;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player UI")
+	TSubclassOf<class UUserWidget> StartGameUIClass;
+
 public:
 
 	FORCEINLINE UInGameUserUI* GetUI() { return InGameUI; };

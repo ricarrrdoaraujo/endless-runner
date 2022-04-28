@@ -5,6 +5,7 @@
 #include "RunnerCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "InGameUserUI.h"
+#include "InitialGameWidget.h"
 
 ARunnerPlayerController::ARunnerPlayerController()
 {
@@ -28,7 +29,7 @@ void ARunnerPlayerController::BeginPlay()
         MyCharacter = Cast<ARunnerCharacter>(pawn);
     }
 
-    if (InGameUIClass != nullptr)
+ /*   if (InGameUIClass != nullptr)
     {
         InGameUI = CreateWidget<UInGameUserUI>(this, InGameUIClass);
 
@@ -40,10 +41,22 @@ void ARunnerPlayerController::BeginPlay()
             InGameUI->UpdateDistance(CurrentDistance);
             InGameUI->UpdateLives(CurrentLives);
         }
+    }*/
+
+    if (StartGameUIClass != nullptr)
+    {
+        StartGameUI = CreateWidget<UInitialGameWidget>(this, StartGameUIClass);
+
+        if (StartGameUI != nullptr)
+        {
+            StartGameUI->AddToViewport();
+        }
     }
 
-    StartRunning();
+    //StartRunning();
 }
+
+
 
 void ARunnerPlayerController::PlayerTick(float DeltaTime)
 {
@@ -175,13 +188,19 @@ void ARunnerPlayerController::Jump()
 
 void ARunnerPlayerController::StartRunning()
 {
-    bCanMove = true;
-    bIsRunning = true;
-    if (MyCharacter != nullptr)
+    if (StartGameUI)
     {
-        UE_LOG(LogTemp, Warning, TEXT("StartRunning"));
-        MyCharacter->SetIsMoving(true);
+        StartGameUI->RemoveFromViewport();
+
+        bCanMove = true;
+        bIsRunning = true;
+        if (MyCharacter != nullptr)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("StartRunning"));
+            MyCharacter->SetIsMoving(true);
+        }
     }
+    
 }
 
 void ARunnerPlayerController::StopRunning()
