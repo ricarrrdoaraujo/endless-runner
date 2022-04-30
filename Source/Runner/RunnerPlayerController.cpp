@@ -5,6 +5,7 @@
 #include "RunnerCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "InGameUserUI.h"
+#include "InitialGameWidget.h"
 
 ARunnerPlayerController::ARunnerPlayerController()
 {
@@ -45,6 +46,8 @@ void ARunnerPlayerController::BeginPlay()
     StartRunning();
 }
 
+
+
 void ARunnerPlayerController::PlayerTick(float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
@@ -76,12 +79,10 @@ void ARunnerPlayerController::PlayerTick(float DeltaTime)
 
     if (bIsRunning)
     {
-        UE_LOG(LogTemp, Warning, TEXT("bIsRunning"));
         CurrentDistance += DeltaTime;
 
         if (InGameUI != nullptr)
         {
-            UE_LOG(LogTemp, Warning, TEXT("Distance Up"));
             InGameUI->UpdateDistance(CurrentDistance);
         }
     }
@@ -181,7 +182,7 @@ void ARunnerPlayerController::StartRunning()
     {
         UE_LOG(LogTemp, Warning, TEXT("StartRunning"));
         MyCharacter->SetIsMoving(true);
-    }
+    }    
 }
 
 void ARunnerPlayerController::StopRunning()

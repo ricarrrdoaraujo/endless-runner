@@ -3,3 +3,7 @@
 
 #include "InitialGameWidget.h"
 
+//void UInitialGameWidget::RemoveInitialWidget()
+//{
+//    this->RemoveFromViewport();
+//}

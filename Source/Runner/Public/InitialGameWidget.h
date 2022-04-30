@@ -13,5 +13,4 @@ UCLASS()
 class RUNNER_API UInitialGameWidget : public UUserWidget
 {
 	GENERATED_BODY()
-	
 };

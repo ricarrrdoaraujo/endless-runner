@@ -10,7 +10,6 @@
 AGameController::AGameController()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 void AGameController::BeginPlay()
@@ -27,25 +26,8 @@ void AGameController::BeginPlay()
 	
 }
 
-void AGameController::OpenGame()
-{
-	if (GameState == EGameState::VE_InitializeGame)
-	{
-		//TODO: Create Initial screen
-		if (PlayerController != nullptr)
-		{
-			if (PlayerController->GetUI() != nullptr)
-			{
-				PlayerController->GetUI()->OnInitializeGame();
-			}
-		}
-	}
-}
-
 void AGameController::StartSession()
 {
-	GameState = EGameState::VE_PreparePlatform;
-
 	if (PlayerController != nullptr)
 	{
 		RunnerCharacter = Cast<ARunnerCharacter>(PlayerController->GetCharacter());
@@ -137,17 +119,6 @@ void AGameController::InitializeGame()
 	for (int i = 0; i < VisibleModuleNumber; i++)
 	{
 		AModule* SpawnedPlatform = nullptr;
-
-		//int32 RandomIndex = FMath::RandRange(0, 2);
-		// Find the platform by type
-		/*for (int j = 0; j < PlatformTable.Num(); j++)
-		{
-			if ((EPlatformType)RandomIndex == PlatformTable[i].PlatformType)
-			{
-				SpawnedPlatform = GetWorld()->SpawnActor<AModule>(PlatformTable[j].PlatformClass, Position, FRotator::ZeroRotator);
-				break;
-			}
-		}*/
 
 		if (PlatformCount <= 3) // First platforms we only spawn Ground or Bridge
 		{
