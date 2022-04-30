@@ -43,16 +43,6 @@ void ARunnerPlayerController::BeginPlay()
         }
     }
 
- /*   if (StartGameUIClass != nullptr)
-    {
-        StartGameUI = CreateWidget<UInitialGameWidget>(this, StartGameUIClass);
-
-        if (StartGameUI != nullptr)
-        {
-            StartGameUI->AddToViewport();
-        }
-    }*/
-
     StartRunning();
 }
 
@@ -89,12 +79,10 @@ void ARunnerPlayerController::PlayerTick(float DeltaTime)
 
     if (bIsRunning)
     {
-        UE_LOG(LogTemp, Warning, TEXT("bIsRunning"));
         CurrentDistance += DeltaTime;
 
         if (InGameUI != nullptr)
         {
-            UE_LOG(LogTemp, Warning, TEXT("Distance Up"));
             InGameUI->UpdateDistance(CurrentDistance);
         }
     }
