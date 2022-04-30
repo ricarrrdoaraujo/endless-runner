@@ -44,8 +44,6 @@ void AGameController::OpenGame()
 
 void AGameController::StartSession()
 {
-	GameState = EGameState::VE_PreparePlatform;
-
 	if (PlayerController != nullptr)
 	{
 		RunnerCharacter = Cast<ARunnerCharacter>(PlayerController->GetCharacter());

@@ -29,7 +29,7 @@ void ARunnerPlayerController::BeginPlay()
         MyCharacter = Cast<ARunnerCharacter>(pawn);
     }
 
- /*   if (InGameUIClass != nullptr)
+    if (InGameUIClass != nullptr)
     {
         InGameUI = CreateWidget<UInGameUserUI>(this, InGameUIClass);
 
@@ -41,9 +41,9 @@ void ARunnerPlayerController::BeginPlay()
             InGameUI->UpdateDistance(CurrentDistance);
             InGameUI->UpdateLives(CurrentLives);
         }
-    }*/
+    }
 
-    if (StartGameUIClass != nullptr)
+ /*   if (StartGameUIClass != nullptr)
     {
         StartGameUI = CreateWidget<UInitialGameWidget>(this, StartGameUIClass);
 
@@ -51,9 +51,9 @@ void ARunnerPlayerController::BeginPlay()
         {
             StartGameUI->AddToViewport();
         }
-    }
+    }*/
 
-    //StartRunning();
+    StartRunning();
 }
 
 
@@ -188,19 +188,13 @@ void ARunnerPlayerController::Jump()
 
 void ARunnerPlayerController::StartRunning()
 {
-    if (StartGameUI)
+    bCanMove = true;
+    bIsRunning = true;
+    if (MyCharacter != nullptr)
     {
-        StartGameUI->RemoveFromViewport();
-
-        bCanMove = true;
-        bIsRunning = true;
-        if (MyCharacter != nullptr)
-        {
-            UE_LOG(LogTemp, Warning, TEXT("StartRunning"));
-            MyCharacter->SetIsMoving(true);
-        }
-    }
-    
+        UE_LOG(LogTemp, Warning, TEXT("StartRunning"));
+        MyCharacter->SetIsMoving(true);
+    }    
 }
 
 void ARunnerPlayerController::StopRunning()
