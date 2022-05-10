@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+//#include "Http.h"
 #include "Module.h"
 #include "Definitions.h"
 #include "GameController.generated.h"
@@ -98,4 +99,7 @@ private:
 	EPlatformType GetPlatformTypeToSpawn(const EPlatformType& PreviousType);
 
 	TSubclassOf<class AModule> GetModuleByType(const EPlatformType& PreviousType);
+
+//private:
+//	void OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bConnectedSuccessfully);
 };

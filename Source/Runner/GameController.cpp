@@ -16,6 +16,12 @@ void AGameController::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//FHttpRequestRef Request = FHttpModule::Get().CreateRequest();
+	//Request->OnProcessRequestComplete().BindUObject(this, &AGameController::OnResponseReceived);
+	//Request->SetURL("https://us-central1-endless-runner-rsn-1.cloudfunctions.net/roundStart");
+	//Request->SetVerb("GET");
+	//Request->ProcessRequest();
+
 	//GameState = EGameState::VE_InitializeGame;
 	GameState = EGameState::VE_PreparePlatform;
 
@@ -25,6 +31,19 @@ void AGameController::BeginPlay()
 	StartSession();
 	
 }
+
+//void AGameController::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bConnectedSuccessfully)
+//{
+//	UE_LOG(LogTemp, Display, TEXT("Response %s"), *Response->GetContentAsString());
+//	if (bConnectedSuccessfully)
+//	{
+//		GameState = EGameState::VE_PreparePlatform;
+//
+//		PlayerController = Cast<ARunnerPlayerController>(GetWorld()->GetFirstPlayerController());
+//
+//		StartSession();
+//	}
+//}
 
 void AGameController::StartSession()
 {
@@ -291,6 +310,7 @@ TSubclassOf<class AModule> AGameController::GetModuleByType(const EPlatformType&
 
 	return nullptr;
 }
+
 
 void AGameController::SpawnNewPlatform()
 {
