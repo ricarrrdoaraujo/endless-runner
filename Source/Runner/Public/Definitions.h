@@ -50,7 +50,8 @@ static FORCEINLINE EnumType GetEnumValueFromString(const FString& EnumName, cons
 	{
 		return EnumType(0);
 	}
-	return (EnumType)Enum->FindEnumIndex(FName(*String));
+	//return (EnumType)Enum->FindEnumIndex(FName(*String));
+	return (EnumType)Enum->GetIndexByName(FName(*String));
 };
 
 /**
